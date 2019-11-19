@@ -1,0 +1,21 @@
+{
+    "name": "dateti/holidays-cs",
+    "type": "library",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Jan Galek",
+            "email": "admin@gcore.cz"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "dateti/holidays": "dev-master",
+        "nette/neon": "v3.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DateTi\\Holidays\\": "src"
+        }
+    },
+}
