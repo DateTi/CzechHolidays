@@ -3,6 +3,7 @@
 namespace DateTi\Holidays;
 
 use DateTi\DateTi;
+use DateTi\Time\DateTimeInterface;
 use Nette\Neon\Neon;
 
 class Czech implements HolidaysInterface
@@ -27,18 +28,18 @@ class Czech implements HolidaysInterface
         $this->easterHoliday = $easterHoliday;
     }
 
-    public function isHoliday(DateTi $dateTi): bool
+    public function isHoliday(DateTimeInterface $date): bool
     {
-        $year = $dateTi->getYear();
+        $year = $date->getYear();
 
         if ($this->isAllowedEaster()
-            && $this->getEaster()::getMonday($year)->format('Y-m-d') === $dateTi->format('Y-m-d')
+            && $this->getEaster()->getMonday($year)->format('Y-m-d') === $date->format('Y-m-d')
         ) {
             return true;
         }
 
         if ($this->isAllowedGoodFriday()
-            && $this->getEaster()::getGoodFriday($year)->format('Y-m-d') === $dateTi->format('Y-m-d')
+            && $this->getEaster()->getGoodFriday($year)->format('Y-m-d') === $date->format('Y-m-d')
         ) {
             return true;
         }
@@ -46,7 +47,7 @@ class Czech implements HolidaysInterface
         foreach ($this->getHollidays() as $holliday) {
             $yearHoliday = $year . '-' . $holliday;
 
-            if ($dateTi->format('Y-m-d') === $yearHoliday) {
+            if ($date->format('Y-m-d') === $yearHoliday) {
                 return true;
             }
         }
@@ -86,11 +87,20 @@ class Czech implements HolidaysInterface
         return $this->easterHoliday;
     }
 
-    private function getConfig()
+    /**
+     * @return array
+     * @throws \RuntimeException
+     */
+    private function getConfig(): array
     {
         if (!$this->config) {
             $file = __DIR__ . '/config.neon';
-            $this->config = Neon::decode(file_get_contents($file), Neon::BLOCK);
+            $content = file_get_contents($file);
+
+            if ($content === false) {
+                throw new \RuntimeException('Unavailable get content from file ' . $file);
+            }
+            $this->config = Neon::decode($content, Neon::BLOCK);
         }
 
         return $this->config;
