@@ -1,6 +1,7 @@
 {
     "name": "dateti/holidays-cs",
     "type": "library",
+    "description": "",
     "license": "Apache-2.0",
     "authors": [
         {
@@ -21,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "DateTi\\Holidays\\": "src"
+            "DateTi\\Holidays\\Czech\\": "src"
         }
     },
     "autoload-dev": {
