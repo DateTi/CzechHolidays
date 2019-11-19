@@ -13,9 +13,14 @@
         "dateti/holidays": "dev-master",
         "nette/neon": "v3.0.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^8.4",
+        "mockery/mockery": "^1.2"
+    },
     "autoload": {
         "psr-4": {
-            "DateTi\\Holidays\\": "src"
+            "DateTi\\Holidays\\": "src",
+            "DateTiTests\\": "tests"
         }
-    },
+    }
 }
